@@ -48,6 +48,10 @@ export default function ProjectCarousel() {
       }}
       onPointerDown={(event) => {
         if (event.pointerType === "mouse" && event.button !== 0) return;
+        if ((event.target as Element).closest("a, button")) {
+          didDrag.current = false;
+          return;
+        }
         event.currentTarget.setPointerCapture(event.pointerId);
         setPaused(true);
         pointerStart.current = event.clientX;
@@ -71,6 +75,7 @@ export default function ProjectCarousel() {
       }}
       onPointerCancel={() => {
         pointerStart.current = null;
+        didDrag.current = false;
         setDragOffset(0);
         setIsDragging(false);
         setPaused(false);
