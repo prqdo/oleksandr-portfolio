@@ -29,6 +29,22 @@ npm run dev
 npm run build
 ```
 
+## Architecture
+
+- `page.tsx` contains the bilingual page content and section structure.
+- `LanguageContext` stores the English/German preference in local storage.
+- `ProjectCarousel` manages automatic rotation, swipe gestures, pause states,
+  keyboard access, and the active project.
+- `MobileFocus` maps the element nearest the phone viewport's focus line to the
+  same visual language used by desktop hover interactions.
+- `CursorGlow` follows pointer and touch coordinates and changes tone with the
+  focused content.
+- `RevealOnScroll` and `SkillBubbles` use animation frames and intersection
+  observers so scrolling does not trigger React renders on every pixel.
+
+The visual effects are progressive enhancement: the content and navigation
+remain usable when motion is reduced or JavaScript-driven animation is absent.
+
 ## Deployment
 
 The portfolio deploys as a Cloudflare Worker. Its public address is managed

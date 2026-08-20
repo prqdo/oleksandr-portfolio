@@ -5,12 +5,12 @@ import { useLanguage } from "./LanguageContext";
 
 const projectCopy = {
   en: [
-    { key: "portfolio", status: "Current project · 2026", title: "Portfolio Website", description: "The website you’re viewing now. I designed and built it to present my background, skills and availability while refreshing my frontend development knowledge.", tags: ["React", "Responsive CSS", "Interaction design"], href: "https://github.com/prqdo/oleksandr-portfolio" },
-    { key: "klarlauf", status: "Live project · 2026", title: "Klarlauf", description: "A full-stack order-management tool for small creative teams, with editing, workflow filters and permanent storage in a Cloudflare database.", tags: ["React", "TypeScript", "Cloudflare D1"], href: "https://github.com/prqdo/Klarlauf" },
+    { key: "portfolio", status: "Current project · 2026", title: "Portfolio Website", description: "The website you’re viewing now. I designed and built it to present my background, skills and availability while refreshing my frontend development knowledge.", tags: ["React", "Responsive CSS", "Interaction design"], repoHref: "https://github.com/prqdo/oleksandr-portfolio" },
+    { key: "klarlauf", status: "Live project · 2026", title: "Klarlauf", description: "A full-stack order-management tool for small creative teams, with editing, workflow filters and permanent storage in a Cloudflare database.", tags: ["React", "TypeScript", "Cloudflare D1"], repoHref: "https://github.com/prqdo/Klarlauf", liveHref: "https://klarlauf.sehechenko.workers.dev" },
   ],
   de: [
-    { key: "portfolio", status: "Aktuelles Projekt · 2026", title: "Portfolio-Website", description: "Die Website, die Sie gerade ansehen. Ich habe sie gestaltet und entwickelt, um meinen Hintergrund, meine Kenntnisse und meine Verfügbarkeit zu präsentieren und gleichzeitig mein Frontend-Wissen aufzufrischen.", tags: ["React", "Responsives CSS", "Interaktionsdesign"], href: "https://github.com/prqdo/oleksandr-portfolio" },
-    { key: "klarlauf", status: "Live-Projekt · 2026", title: "Klarlauf", description: "Ein Full-Stack-Auftragsmanagement für kleine Kreativteams – mit Bearbeitung, Workflow-Filtern und dauerhafter Speicherung in einer Cloudflare-Datenbank.", tags: ["React", "TypeScript", "Cloudflare D1"], href: "https://github.com/prqdo/Klarlauf" },
+    { key: "portfolio", status: "Aktuelles Projekt · 2026", title: "Portfolio-Website", description: "Die Website, die Sie gerade ansehen. Ich habe sie gestaltet und entwickelt, um meinen Hintergrund, meine Kenntnisse und meine Verfügbarkeit zu präsentieren und gleichzeitig mein Frontend-Wissen aufzufrischen.", tags: ["React", "Responsives CSS", "Interaktionsdesign"], repoHref: "https://github.com/prqdo/oleksandr-portfolio" },
+    { key: "klarlauf", status: "Live-Projekt · 2026", title: "Klarlauf", description: "Ein Full-Stack-Auftragsmanagement für kleine Kreativteams – mit Bearbeitung, Workflow-Filtern und dauerhafter Speicherung in einer Cloudflare-Datenbank.", tags: ["React", "TypeScript", "Cloudflare D1"], repoHref: "https://github.com/prqdo/Klarlauf", liveHref: "https://klarlauf.sehechenko.workers.dev" },
   ],
 } as const;
 
@@ -97,11 +97,10 @@ export default function ProjectCarousel() {
                 <h2>{project.title}</h2>
                 <p>{project.description}</p>
                 <div className="projectTags" aria-label={`${project.title} technologies`}>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-                {project.href ? (
-                  <a className="projectLink" href={project.href} target="_blank" rel="noreferrer" tabIndex={active === index ? 0 : -1}>{language === "de" ? "Auf GitHub ansehen" : "View on GitHub"} <span aria-hidden="true">↗</span></a>
-                ) : (
-                  <p className="projectPending">{language === "de" ? "Aktiv in Entwicklung" : "Actively in development"}</p>
-                )}
+                <div className="projectLinks">
+                  {"liveHref" in project && project.liveHref && <a className="projectLink" href={project.liveHref} target="_blank" rel="noreferrer" tabIndex={active === index ? 0 : -1}>{language === "de" ? "Live ansehen" : "View live"} <span aria-hidden="true">↗</span></a>}
+                  <a className="projectLink" href={project.repoHref} target="_blank" rel="noreferrer" tabIndex={active === index ? 0 : -1}>{language === "de" ? "Code auf GitHub" : "View code"} <span aria-hidden="true">↗</span></a>
+                </div>
               </div>
             </article>
           ))}
