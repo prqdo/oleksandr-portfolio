@@ -41,6 +41,7 @@ yarn-error.log*
 
 # local working files and package cache
 /.pnpm-store/
+/.npm-cache/
 /tmp/
 /output/
 
