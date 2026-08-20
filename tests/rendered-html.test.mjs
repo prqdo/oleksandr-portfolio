@@ -35,5 +35,8 @@ test("server-renders Oleksandr's portfolio", async () => {
   assert.match(html, /fusiiion@protonmail\.com/);
   assert.match(html, /tel:\+491604274683/);
   assert.match(html, /github\.com\/prqdo/);
+  assert.match(html, /klarlauf\.sehechenko\.workers\.dev/);
+  assert.match(html, /Open Klarlauf live/);
+  assert.doesNotMatch(html, />View live</i);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });

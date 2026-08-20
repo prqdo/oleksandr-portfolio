@@ -47,3 +47,6 @@ yarn-error.log*
 
 # separate project with its own repository
 /orderflow/
+
+# local CV deliverables and document QA files
+/cv_update/

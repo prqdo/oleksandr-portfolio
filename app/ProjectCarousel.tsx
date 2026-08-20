@@ -48,26 +48,29 @@ export default function ProjectCarousel() {
       }}
       onPointerDown={(event) => {
         if (event.pointerType === "mouse" && event.button !== 0) return;
-        if ((event.target as Element).closest("a, button")) {
+        if ((event.target as Element).closest(".projectLink, button")) {
           didDrag.current = false;
           return;
         }
-        event.currentTarget.setPointerCapture(event.pointerId);
         setPaused(true);
         pointerStart.current = event.clientX;
         didDrag.current = false;
-        setIsDragging(true);
+        setIsDragging(false);
       }}
       onPointerMove={(event) => {
         if (pointerStart.current === null) return;
         const distance = event.clientX - pointerStart.current;
-        if (Math.abs(distance) > 8) didDrag.current = true;
-        setDragOffset(distance);
+        if (Math.abs(distance) > 8 && !didDrag.current) {
+          didDrag.current = true;
+          event.currentTarget.setPointerCapture(event.pointerId);
+          setIsDragging(true);
+        }
+        if (didDrag.current) setDragOffset(distance);
       }}
       onPointerUp={(event) => {
         if (pointerStart.current === null) return;
         const distance = event.clientX - pointerStart.current;
-        if (Math.abs(distance) > 45) move(distance < 0 ? 1 : -1);
+        if (didDrag.current && Math.abs(distance) > 45) move(distance < 0 ? 1 : -1);
         pointerStart.current = null;
         setDragOffset(0);
         setIsDragging(false);
@@ -92,18 +95,26 @@ export default function ProjectCarousel() {
         <div className={`carouselTrack${isDragging ? " isDragging" : ""}`} style={{ transform: `translateX(calc(-${active * 100}% + ${dragOffset}px))` }}>
           {projects.map((project, index) => (
             <article
-              className={`carouselSlide carouselSlide--${project.key}`}
+              className={`carouselSlide carouselSlide--${project.key}${"liveHref" in project && project.liveHref ? " carouselSlide--live" : ""}`}
               key={project.key}
               aria-hidden={active !== index}
               aria-label={`${project.title}, ${project.status}`}
             >
+              {"liveHref" in project && project.liveHref && (
+                <a
+                  className="carouselSlideLink"
+                  href={project.liveHref}
+                  draggable={false}
+                  tabIndex={active === index ? 0 : -1}
+                  aria-label={language === "de" ? "Klarlauf live öffnen" : "Open Klarlauf live"}
+                />
+              )}
               <div className="carouselProjectCopy">
                 <p className="projectStatus">{project.status}</p>
                 <h2>{project.title}</h2>
                 <p>{project.description}</p>
                 <div className="projectTags" aria-label={`${project.title} technologies`}>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
                 <div className="projectLinks">
-                  {"liveHref" in project && project.liveHref && <a className="projectLink" href={project.liveHref} target="_blank" rel="noreferrer" tabIndex={active === index ? 0 : -1}>{language === "de" ? "Live ansehen" : "View live"} <span aria-hidden="true">↗</span></a>}
                   <a className="projectLink" href={project.repoHref} target="_blank" rel="noreferrer" tabIndex={active === index ? 0 : -1}>{language === "de" ? "Code auf GitHub" : "View code"} <span aria-hidden="true">↗</span></a>
                 </div>
               </div>
