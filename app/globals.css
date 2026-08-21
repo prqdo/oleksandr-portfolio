@@ -377,23 +377,23 @@ footer { width:min(1180px,calc(100% - 48px)); margin:0 auto; padding:24px 0 38px
   .mobileNavPanel { top:100%; right:auto; left:50%; width:100vw; min-width:0; padding:0; overflow:hidden; border:0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); border-radius:0 0 18px 18px; background:rgba(13,10,18,.94); -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px); box-shadow:0 20px 40px rgba(0,0,0,.34); transform:translateX(-50%); }
   .mobileNavPanel a { width:100%; padding:18px 16px; border:0; border-radius:0; text-align:center; font-size:.82rem; }
   .languageToggleMobile { justify-content:center; width:100%; padding:18px 16px; border-top:1px solid var(--line); font-size:.72rem; }
-  .hero { padding-top:58px; }
+  .hero { min-height:auto; padding-top:72px; padding-bottom:96px; justify-content:flex-start; }
   .availability { margin-right:auto; margin-left:auto; }
   .eyebrow { --eyebrow-spacing:.07em; margin:0; text-align:center; font-size:.64rem; font-weight:550; line-height:1.35; letter-spacing:.07em; }
   .eyebrowDesktop { display:none; }
   .eyebrowMobile { display:flex; justify-content:center; white-space:nowrap; }
-  .hero h1 { margin-right:auto; margin-left:auto; font-size:clamp(3.6rem,16vw,5.2rem); line-height:.96; letter-spacing:-.06em; text-align:center; transform-origin:center; }
+  .hero h1 { margin:36px auto 38px; font-size:clamp(3.6rem,16vw,5.2rem); line-height:.96; letter-spacing:-.06em; text-align:center; transform-origin:center; }
   .heroLead { --headline-rest:-.22em; display:block; margin:0 auto; white-space:nowrap; }
   html[lang="de"] .heroLead { font-size:.94em; }
   .heroAccent { --headline-rest:.3em; margin-right:auto; margin-left:auto; margin-top:.26em; font-size:.78em; letter-spacing:-.045em; }
   .intro { margin-right:auto; margin-left:auto; text-align:center; transform-origin:center; }
   .intro:hover,.intro:focus-visible { transform:translateY(-3px) scale(1.012); }
-  .heroActions { justify-content:center; }
-  .heroMeta { grid-template-columns:1fr; margin-top:68px; }
+  .heroActions { justify-content:center; margin-top:40px; }
+  .heroMeta { grid-template-columns:1fr; margin-top:82px; }
   .heroMeta div { flex-direction:row; align-items:baseline; gap:10px; padding-top:12px; }
-  .section { grid-template-columns:1fr; gap:24px; padding:72px 0; }
-  .detailGrid { grid-template-columns:1fr; gap:20px; }
-  .detailGrid div { min-height:0; padding:24px; }
+  .section { grid-template-columns:1fr; gap:30px; padding:96px 0; }
+  .detailGrid { grid-template-columns:1fr; gap:28px; margin-top:54px; }
+  .detailGrid div { min-height:0; gap:12px; padding:30px 26px; line-height:1.5; }
   .projectCarousel { grid-column:1; }
   .carouselSlide { min-height:520px; }
   .carouselProjectCopy { min-height:520px; justify-content:center; padding:42px 20px; }
