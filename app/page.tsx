@@ -2,7 +2,7 @@
 
 import CursorGlow from "./CursorGlow";
 import LanguageToggle from "./LanguageToggle";
-import MobileFocus from "./MobileFocus";
+import ViewportFocus from "./ViewportFocus";
 import MobileNav from "./MobileNav";
 import ProjectCarousel from "./ProjectCarousel";
 import RevealOnScroll from "./RevealOnScroll";
@@ -12,8 +12,6 @@ import { useLanguage } from "./LanguageContext";
 const copy = {
   en: {
     nav: ["About", "Work", "Contact"], navLabel: "Main navigation", homeLabel: "Oleksandr Sehechenko, home",
-    availabilityLabel: "Contact me about an IT MAG in Flensburg", availability: "Available for an IT MAG in Flensburg",
-    eyebrow: ["Computer engineering", "Web development", "Web design"], eyebrowMobile: ["Engineering", "Web development", "Design"],
     heroLead: "Looks good", heroAccent: "Works better",
     intro: "Web developer with a Ukrainian state-recognized qualification in Computer Engineering and a focus on Computer Graphics and Web Design.",
     viewWork: "View my work", github: "GitHub profile", keyFacts: "Key facts", ects: "ECTS completed",
@@ -30,8 +28,6 @@ const copy = {
   },
   de: {
     nav: ["Über mich", "Projekte", "Kontakt"], navLabel: "Hauptnavigation", homeLabel: "Oleksandr Sehechenko, Startseite",
-    availabilityLabel: "Kontaktieren Sie mich wegen eines IT-MAG in Flensburg", availability: "Verfügbar für ein IT-MAG in Flensburg",
-    eyebrow: ["Computertechnik", "Webentwicklung", "Webdesign"], eyebrowMobile: ["Technik", "Webentwicklung", "Design"],
     heroLead: "Sieht gut aus", heroAccent: "Läuft besser",
     intro: "Webentwickler mit einem staatlich anerkannten ukrainischen Abschluss in Computer Engineering und dem Schwerpunkt Computergrafik und Webdesign.",
     viewWork: "Projekte ansehen", github: "GitHub-Profil", keyFacts: "Wichtige Fakten", ects: "ECTS abgeschlossen",
@@ -54,26 +50,24 @@ export default function Home() {
 
   return (
     <main>
-      <CursorGlow /><MobileFocus /><RevealOnScroll />
+      <CursorGlow /><ViewportFocus /><RevealOnScroll />
       <nav className="nav" aria-label={t.navLabel}>
         <a className="brand" href="#top" aria-label={t.homeLabel}>OS<span>.</span></a>
         <div className="navDesktopMenu"><div className="navLinks"><a href="#about">{t.nav[0]}</a><a href="#work">{t.nav[1]}</a><a href="#contact">{t.nav[2]}</a></div><LanguageToggle /></div>
         <MobileNav />
       </nav>
       <section className="hero" id="top">
-        <a className="availability" href="#contact" aria-label={t.availabilityLabel}><span className="availabilityDot" aria-hidden="true" /><span className="availabilityDesktop">{t.availability}</span><span className="availabilityMobile">IT MAG · Flensburg</span></a>
-        <p className="eyebrow"><span className="eyebrowDesktop"><span className="eyebrowItem">{t.eyebrow[0]}</span><span className="eyebrowDot" aria-hidden="true">·</span><span className="eyebrowItem">{t.eyebrow[1]}</span><span className="eyebrowDot" aria-hidden="true">·</span><span className="eyebrowItem">{t.eyebrow[2]}</span></span><span className="eyebrowMobile"><span className="eyebrowItem">{t.eyebrowMobile[0]}</span><span className="eyebrowDot" aria-hidden="true">·</span><span className="eyebrowItem">{t.eyebrowMobile[1]}</span><span className="eyebrowDot" aria-hidden="true">·</span><span className="eyebrowItem">{t.eyebrowMobile[2]}</span></span></p>
-        <h1><span className="heroLead" data-mobile-focus data-focus-tone="blue"><span className="heroTextFlicker heroTextFlickerLead">{t.heroLead}</span></span><span className="heroAccent" data-mobile-focus data-focus-tone="purple"><span className="heroTextFlicker heroTextFlickerAccent">{t.heroAccent}</span></span></h1>
-        <p className="intro" data-mobile-focus data-focus-tone="blue">{t.intro}</p>
+        <h1><span className="heroLead" data-viewport-focus data-focus-tone="blue"><span className="heroTextFlicker heroTextFlickerLead">{t.heroLead}</span></span><span className="heroAccent" data-viewport-focus data-focus-tone="purple"><span className="heroTextFlicker heroTextFlickerAccent">{t.heroAccent}</span></span></h1>
+        <p className="intro">{t.intro}</p>
         <div className="heroActions"><a className="primaryButton" href="#work">{t.viewWork}</a><a className="textLink" href="https://github.com/prqdo" target="_blank" rel="noreferrer">{t.github} <span aria-hidden="true">↗</span></a></div>
-        <div className="heroMeta" aria-label={t.keyFacts} data-reveal="up"><div data-mobile-focus data-focus-tone="blue"><strong>180</strong><span>{t.ects}</span></div><div data-mobile-focus data-focus-tone="blue"><strong>EQF 5</strong><span>{t.qualificationLevel}</span></div><div data-mobile-focus data-focus-tone="blue"><strong>B1</strong><span>{t.germanResult}</span></div></div>
+        <div className="heroMeta" aria-label={t.keyFacts} data-reveal="up"><div data-viewport-focus data-focus-tone="blue"><strong>180</strong><span>{t.ects}</span></div><div data-viewport-focus data-focus-tone="blue"><strong>EQF 5</strong><span>{t.qualificationLevel}</span></div><div data-viewport-focus data-focus-tone="blue"><strong>B1</strong><span>{t.germanResult}</span></div></div>
       </section>
       <section className="about section" id="about" data-reveal="up">
-        <p className="sectionNumber" data-mobile-focus data-focus-tone="purple">{t.aboutLabel}</p>
-        <div><h2 data-mobile-focus data-focus-tone="purple">{t.aboutTitle}</h2><p data-mobile-focus data-focus-tone="blue">{t.aboutText}</p><div className="detailGrid"><div data-reveal="left" data-mobile-focus data-focus-tone="purple"><strong>{t.qualification}</strong><span>{t.qualificationName}</span><small>{t.qualificationDetail}</small></div><div data-reveal="right" data-mobile-focus data-focus-tone="purple"><strong>{t.languages}</strong><span>{t.ukrainian}</span><span>{t.russian}</span><span>{t.english}</span><small>{t.german}</small></div></div><div className="skillBlock" data-reveal="up"><SkillBubbles skills={t.skills} label={t.skillsLabel} /></div></div>
+        <p className="sectionNumber">{t.aboutLabel}</p>
+        <div><h2 data-viewport-focus data-focus-tone="purple">{t.aboutTitle}</h2><p data-viewport-focus data-focus-tone="blue">{t.aboutText}</p><div className="detailGrid"><div data-reveal="left" data-viewport-focus data-focus-tone="purple"><strong>{t.qualification}</strong><span>{t.qualificationName}</span><small>{t.qualificationDetail}</small></div><div data-reveal="right" data-viewport-focus data-focus-tone="purple"><strong>{t.languages}</strong><span>{t.ukrainian}</span><span>{t.russian}</span><span>{t.english}</span><small>{t.german}</small></div></div><div className="skillBlock" data-reveal="up"><SkillBubbles skills={t.skills} label={t.skillsLabel} /></div></div>
       </section>
       <section className="work section" id="work" data-reveal="up"><p className="sectionNumber">{t.projectsLabel}</p><ProjectCarousel /></section>
-      <section className="contact section" id="contact" data-reveal="up"><p className="sectionNumber">{t.contactLabel}</p><div><h2>{t.contactTitle}</h2><p>{t.contactText}</p><div className="contactLinks"><a href="mailto:fusiiion@protonmail.com">fusiiion@protonmail.com</a><a href="tel:+491604274683">+49 160 427 4683</a><a href="https://github.com/prqdo" target="_blank" rel="noreferrer">github.com/prqdo <span aria-hidden="true">↗</span></a></div></div></section>
+      <section className="contact section" id="contact" data-reveal="up"><p className="sectionNumber">{t.contactLabel}</p><div><h2 data-viewport-focus data-focus-tone="purple">{t.contactTitle}</h2><p data-viewport-focus data-focus-tone="blue">{t.contactText}</p><div className="contactLinks"><a href="mailto:fusiiion@protonmail.com">fusiiion@protonmail.com</a><a href="tel:+491604274683">+49 160 427 4683</a><a href="https://github.com/prqdo" target="_blank" rel="noreferrer">github.com/prqdo <span aria-hidden="true">↗</span></a></div></div></section>
       <footer><span>Oleksandr Sehechenko</span><span>Flensburg · 2026</span></footer>
     </main>
   );

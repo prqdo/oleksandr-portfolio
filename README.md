@@ -35,8 +35,8 @@ npm run build
 - `LanguageContext` stores the English/German preference in local storage.
 - `ProjectCarousel` manages automatic rotation, swipe gestures, pause states,
   keyboard access, and the active project.
-- `MobileFocus` maps the element nearest the phone viewport's focus line to the
-  same visual language used by desktop hover interactions.
+- `ViewportFocus` maps the element nearest a phone or tablet viewport's focus
+  line to the same visual language used by desktop hover interactions.
 - `CursorGlow` follows pointer and touch coordinates and changes tone with the
   focused content.
 - `RevealOnScroll` and `SkillBubbles` use animation frames and intersection

@@ -12,9 +12,11 @@ export default function SkillBubbles({ skills, label }: { skills: readonly strin
     const updateWheel = () => {
       window.cancelAnimationFrame(frame);
       frame = window.requestAnimationFrame(() => {
-        const mobile = window.matchMedia("(max-width: 600px)").matches;
+        const wheelLayout = window.matchMedia(
+          "(max-width: 800px), (hover: none), (pointer: coarse)",
+        ).matches;
 
-        if (!mobile) {
+        if (!wheelLayout) {
           refs.current.forEach((element) => {
             element?.classList.remove("isWheelFocused");
             element?.style.removeProperty("--wheel-scale");
@@ -65,7 +67,7 @@ export default function SkillBubbles({ skills, label }: { skills: readonly strin
   }, []);
 
   const reactTo = (index: number) => {
-    if (!window.matchMedia("(min-width: 601px)").matches) return;
+    if (!window.matchMedia("(min-width: 801px) and (hover: hover) and (pointer: fine)").matches) return;
     const source = refs.current[index];
     if (!source) return;
 
@@ -85,7 +87,7 @@ export default function SkillBubbles({ skills, label }: { skills: readonly strin
       const dx = element.offsetLeft + element.offsetWidth / 2 - sourceX;
       const dy = element.offsetTop + element.offsetHeight / 2 - sourceY;
       const distance = Math.max(Math.hypot(dx, dy), 1);
-      const strength = Math.max(3, 17 - distance * 0.028);
+      const strength = Math.max(2.5, 14 - distance * 0.022);
       element.style.setProperty("--bubble-x", `${((dx / distance) * strength).toFixed(1)}px`);
       element.style.setProperty("--bubble-y", `${((dy / distance) * strength).toFixed(1)}px`);
     });

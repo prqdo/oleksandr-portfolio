@@ -113,7 +113,7 @@ export default function ProjectCarousel() {
                 <p className="projectStatus">{project.status}</p>
                 <h2>{project.title}</h2>
                 <p>{project.description}</p>
-                <div className="projectTags" aria-label={`${project.title} technologies`}>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+                <div className="projectTags" aria-label={language === "de" ? `${project.title} Technologien` : `${project.title} technologies`}>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
                 <div className="projectLinks">
                   <a className="projectLink" href={project.repoHref} target="_blank" rel="noreferrer" tabIndex={active === index ? 0 : -1}>{language === "de" ? "Code auf GitHub" : "View code"} <span aria-hidden="true">↗</span></a>
                 </div>

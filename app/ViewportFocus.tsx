@@ -2,23 +2,18 @@
 
 import { useEffect } from "react";
 
-const MOBILE_QUERY = "(max-width: 600px)";
+const FOCUS_QUERY = "(max-width: 1100px), (hover: none), (pointer: coarse)";
 
-export default function MobileFocus() {
+export default function ViewportFocus() {
   useEffect(() => {
     const root = document.documentElement;
-    const media = window.matchMedia(MOBILE_QUERY);
+    const media = window.matchMedia(FOCUS_QUERY);
+    const portraitPhone = window.matchMedia("(max-width: 600px) and (orientation: portrait)");
     const elements = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-mobile-focus]"),
+      document.querySelectorAll<HTMLElement>("[data-viewport-focus]"),
     );
     const heroHeading = document.querySelector<HTMLElement>(".hero h1");
-    const heroLines = elements.filter(
-      (element) => element.classList.contains("heroLead") || element.classList.contains("heroAccent"),
-    );
     let frame = 0;
-    let touchedElement: HTMLElement | null = null;
-    let touchLockUntil = 0;
-    let scrollStarted = window.scrollY > 4;
     let alternatePulse = false;
     let heroAnimationPlayed = false;
     let heroWasLeft = false;
@@ -26,28 +21,28 @@ export default function MobileFocus() {
     let scrollDirection: "up" | "down" = "down";
 
     const clearFocus = () => {
-      elements.forEach((element) => delete element.dataset.mobileFocused);
-      delete root.dataset.mobileFocusActive;
+      elements.forEach((element) => delete element.dataset.viewportFocused);
+      delete root.dataset.viewportFocusActive;
       delete root.dataset.cursorTone;
-      if (heroHeading) delete heroHeading.dataset.mobilePulse;
+      if (heroHeading) delete heroHeading.dataset.focusPulse;
       heroAnimationPlayed = false;
       heroWasLeft = false;
     };
 
     const activate = (element: HTMLElement | null) => {
       elements.forEach((candidate) => {
-        if (candidate === element) candidate.dataset.mobileFocused = "true";
-        else delete candidate.dataset.mobileFocused;
+        if (candidate === element) candidate.dataset.viewportFocused = "true";
+        else delete candidate.dataset.viewportFocused;
       });
 
       if (!element) {
-        delete root.dataset.mobileFocusActive;
+        delete root.dataset.viewportFocusActive;
         delete root.dataset.cursorTone;
-        if (heroHeading) delete heroHeading.dataset.mobilePulse;
+        if (heroHeading) delete heroHeading.dataset.focusPulse;
         return;
       }
 
-      root.dataset.mobileFocusActive = "true";
+      root.dataset.viewportFocusActive = "true";
       root.dataset.cursorTone = element.dataset.focusTone ?? "blue";
       if (
         heroHeading &&
@@ -55,7 +50,7 @@ export default function MobileFocus() {
         (element.classList.contains("heroLead") || element.classList.contains("heroAccent"))
       ) {
         alternatePulse = !alternatePulse;
-        heroHeading.dataset.mobilePulse = alternatePulse ? "a" : "b";
+        heroHeading.dataset.focusPulse = alternatePulse ? "a" : "b";
         heroAnimationPlayed = true;
         heroWasLeft = false;
       }
@@ -68,42 +63,43 @@ export default function MobileFocus() {
         return;
       }
 
-      if (!scrollStarted && !touchedElement) {
-        clearFocus();
-        return;
-      }
-
-      if (touchedElement && performance.now() < touchLockUntil) {
-        activate(touchedElement);
-        return;
-      }
-
-      touchedElement = null;
       const positions = elements.map((element) => {
         const rect = element.getBoundingClientRect();
+        const portraitOnly =
+          element.parentElement?.classList.contains("heroMeta") ||
+          element.parentElement?.classList.contains("detailGrid");
+        const focusAllowed = !portraitOnly || portraitPhone.matches;
         return {
           element,
           center: rect.top + rect.height / 2,
-          visible: rect.bottom > 72 && rect.top < window.innerHeight - 40,
+          visible: focusAllowed && rect.bottom > 72 && rect.top < window.innerHeight - 40,
         };
       });
       const headlineIsVisible = positions.some(
         ({ element, visible }) =>
           visible && (element.classList.contains("heroLead") || element.classList.contains("heroAccent")),
       );
+      if (window.scrollY <= Math.min(120, window.innerHeight * 0.16)) {
+        const lead = positions.find(
+          ({ element, visible }) => visible && element.classList.contains("heroLead"),
+        );
+        if (lead) {
+          activate(lead.element);
+          return;
+        }
+      }
       if (heroAnimationPlayed && !headlineIsVisible) heroWasLeft = true;
       if (heroAnimationPlayed && heroWasLeft && scrollDirection === "up") {
         heroAnimationPlayed = false;
         heroWasLeft = false;
-        if (heroHeading) delete heroHeading.dataset.mobilePulse;
+        if (heroHeading) delete heroHeading.dataset.focusPulse;
       }
-      const focusLine = window.innerHeight * (headlineIsVisible ? 0.34 : 0.48);
-      const measurements = positions.map((position) => ({
-        ...position,
-        distance: Math.abs(position.center - focusLine),
-      }));
-      const nearest = measurements
+
+      const landscape = window.innerWidth > window.innerHeight;
+      const focusLine = window.innerHeight * (headlineIsVisible ? (landscape ? 0.5 : 0.34) : 0.48);
+      const nearest = positions
         .filter(({ visible }) => visible)
+        .map((position) => ({ ...position, distance: Math.abs(position.center - focusLine) }))
         .sort((a, b) => a.distance - b.distance)[0];
 
       activate(nearest && nearest.distance < window.innerHeight * 0.42 ? nearest.element : null);
@@ -118,29 +114,13 @@ export default function MobileFocus() {
       if (currentScrollY < lastScrollY - 1) scrollDirection = "up";
       else if (currentScrollY > lastScrollY + 1) scrollDirection = "down";
       lastScrollY = currentScrollY;
-      if (Math.abs(window.scrollY) > 4) scrollStarted = true;
       requestUpdate();
-    };
-
-    const handlePointerDown = (event: PointerEvent) => {
-      if (!media.matches) return;
-      const target = (event.target as Element).closest<HTMLElement>("[data-mobile-focus]");
-      if (!target) return;
-      touchedElement = target;
-      touchLockUntil = performance.now() + 650;
-      activate(target);
-    };
-
-    const handleHeadlineEnter = (event: PointerEvent) => {
-      if (!media.matches || event.pointerType !== "mouse") return;
-      activate(event.currentTarget as HTMLElement);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", requestUpdate, { passive: true });
-    document.addEventListener("pointerdown", handlePointerDown, { passive: true });
-    heroLines.forEach((element) => element.addEventListener("pointerenter", handleHeadlineEnter));
     media.addEventListener("change", requestUpdate);
+    portraitPhone.addEventListener("change", requestUpdate);
     requestUpdate();
 
     return () => {
@@ -148,9 +128,8 @@ export default function MobileFocus() {
       clearFocus();
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", requestUpdate);
-      document.removeEventListener("pointerdown", handlePointerDown);
-      heroLines.forEach((element) => element.removeEventListener("pointerenter", handleHeadlineEnter));
       media.removeEventListener("change", requestUpdate);
+      portraitPhone.removeEventListener("change", requestUpdate);
     };
   }, []);
 

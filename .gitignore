@@ -50,3 +50,4 @@ yarn-error.log*
 
 # local CV deliverables and document QA files
 /cv_update/
+*.tsbuildinfo
