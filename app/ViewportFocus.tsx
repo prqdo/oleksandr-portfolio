@@ -124,7 +124,7 @@ export default function ViewportFocus() {
       if (!landscapePhone.matches) return;
 
       const target = event.currentTarget as HTMLElement;
-      activate(target.dataset.viewportFocused === "true" ? null : target);
+      if (target.dataset.viewportFocused !== "true") activate(target);
     };
 
     const detailCards = elements.filter((element) =>
