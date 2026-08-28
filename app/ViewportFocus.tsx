@@ -9,6 +9,9 @@ export default function ViewportFocus() {
     const root = document.documentElement;
     const media = window.matchMedia(FOCUS_QUERY);
     const portraitPhone = window.matchMedia("(max-width: 600px) and (orientation: portrait)");
+    const landscapePhone = window.matchMedia(
+      "(max-height: 600px) and (orientation: landscape) and (pointer: coarse)",
+    );
     const elements = Array.from(
       document.querySelectorAll<HTMLElement>("[data-viewport-focus]"),
     );
@@ -79,7 +82,7 @@ export default function ViewportFocus() {
         ({ element, visible }) =>
           visible && (element.classList.contains("heroLead") || element.classList.contains("heroAccent")),
       );
-      if (window.scrollY <= Math.min(120, window.innerHeight * 0.16)) {
+      if (window.scrollY <= Math.min(72, window.innerHeight * 0.1)) {
         const lead = positions.find(
           ({ element, visible }) => visible && element.classList.contains("heroLead"),
         );
@@ -117,10 +120,23 @@ export default function ViewportFocus() {
       requestUpdate();
     };
 
+    const handleLandscapeCardTap = (event: Event) => {
+      if (!landscapePhone.matches) return;
+
+      const target = event.currentTarget as HTMLElement;
+      activate(target.dataset.viewportFocused === "true" ? null : target);
+    };
+
+    const detailCards = elements.filter((element) =>
+      element.parentElement?.classList.contains("detailGrid"),
+    );
+    detailCards.forEach((card) => card.addEventListener("click", handleLandscapeCardTap));
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", requestUpdate, { passive: true });
     media.addEventListener("change", requestUpdate);
     portraitPhone.addEventListener("change", requestUpdate);
+    landscapePhone.addEventListener("change", requestUpdate);
     requestUpdate();
 
     return () => {
@@ -130,6 +146,8 @@ export default function ViewportFocus() {
       window.removeEventListener("resize", requestUpdate);
       media.removeEventListener("change", requestUpdate);
       portraitPhone.removeEventListener("change", requestUpdate);
+      landscapePhone.removeEventListener("change", requestUpdate);
+      detailCards.forEach((card) => card.removeEventListener("click", handleLandscapeCardTap));
     };
   }, []);
 
