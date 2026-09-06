@@ -15,7 +15,7 @@ const copy = {
     heroLead: "Looks good", heroAccent: "Works better",
     intro: "Web developer with a Ukrainian state-recognized qualification in Computer Engineering and a focus on Computer Graphics and Web Design.",
     viewWork: "View my work", github: "GitHub profile", keyFacts: "Key facts", ects: "ECTS completed",
-    qualificationLevel: "qualification level", aboutLabel: "01 / About",
+    qualificationLevel: "qualification level", germanProficiency: "German proficiency", aboutLabel: "01 / About",
     aboutTitle: "Technical foundations with a designer’s eye.",
     aboutText: "My training covered programming, databases, operating systems, networks, software engineering and information security alongside visual design and web development. I work fluently in English. I have passed my German B1 examination and am attending a three-week “Leben in Deutschland” course.",
     qualification: "Qualification", qualificationName: "Junior Specialist in Computer Engineering",
@@ -31,7 +31,7 @@ const copy = {
     heroLead: "Sieht gut aus", heroAccent: "Läuft besser",
     intro: "Webentwickler mit einem staatlich anerkannten ukrainischen Abschluss in Computer Engineering und dem Schwerpunkt Computergrafik und Webdesign.",
     viewWork: "Projekte ansehen", github: "GitHub-Profil", keyFacts: "Wichtige Fakten", ects: "ECTS abgeschlossen",
-    qualificationLevel: "Qualifikationsniveau", aboutLabel: "01 / Über mich",
+    qualificationLevel: "Qualifikationsniveau", germanProficiency: "Deutschkenntnisse", aboutLabel: "01 / Über mich",
     aboutTitle: "Technische Grundlagen mit einem Auge für Design.",
     aboutText: "Meine Ausbildung umfasste Programmierung, Datenbanken, Betriebssysteme, Netzwerke, Softwareentwicklung und Informationssicherheit sowie visuelles Design und Webentwicklung. Ich spreche fließend Englisch. Die Deutschprüfung auf B1-Niveau habe ich bestanden. Gleichzeitig besuche ich einen dreiwöchigen Kurs „Leben in Deutschland“.",
     qualification: "Qualifikation", qualificationName: "Junior Specialist in Computer Engineering",
@@ -60,7 +60,7 @@ export default function Home() {
         <h1><span className="heroLead" data-viewport-focus data-focus-tone="blue"><span className="heroTextFlicker heroTextFlickerLead">{t.heroLead}</span></span><span className="heroAccent" data-viewport-focus data-focus-tone="purple"><span className="heroTextFlicker heroTextFlickerAccent">{t.heroAccent}</span></span></h1>
         <p className="intro">{t.intro}</p>
         <div className="heroActions"><a className="primaryButton" href="#work">{t.viewWork}</a><a className="textLink" href="https://github.com/prqdo" target="_blank" rel="noreferrer">{t.github} <span aria-hidden="true">↗</span></a></div>
-        <div className="heroMeta" aria-label={t.keyFacts} data-reveal="up"><div data-viewport-focus data-focus-tone="blue"><strong>180</strong><span>{t.ects}</span></div><div data-viewport-focus data-focus-tone="blue"><strong>EQF 5</strong><span>{t.qualificationLevel}</span></div><div data-viewport-focus data-focus-tone="blue"><strong>B1</strong></div></div>
+        <div className="heroMeta" aria-label={t.keyFacts} data-reveal="up"><div data-viewport-focus data-focus-tone="blue"><strong>180</strong><span>{t.ects}</span></div><div data-viewport-focus data-focus-tone="blue"><strong>EQF 5</strong><span>{t.qualificationLevel}</span></div><div data-viewport-focus data-focus-tone="blue"><strong>B1</strong><span>{t.germanProficiency}</span></div></div>
       </section>
       <section className="about section" id="about" data-reveal="up">
         <p className="sectionNumber">{t.aboutLabel}</p>
