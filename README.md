@@ -7,8 +7,8 @@ Flensburg focused on web development and web design.
 
 I hold a Ukrainian Junior Specialist qualification in Computer Engineering,
 with a specialization in Computer Graphics and Web Design. This portfolio
-presents my skills, background, and current projects while I pursue an IT
-Praktikum, Ausbildung, or junior opportunity in Germany.
+presents my skills, background, and current projects as I seek a junior
+position in web development, web design, or digital media in Germany.
 
 ## Technologies
 
