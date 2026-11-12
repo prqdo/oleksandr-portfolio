@@ -4,7 +4,7 @@ import { LanguageProvider } from "./LanguageContext";
 
 export const metadata: Metadata = {
   title: "Oleksandr Sehechenko · Web Developer",
-  description: "Portfolio of Oleksandr Sehechenko, a web developer in Flensburg focused on clear, useful digital experiences.",
+  description: "Portfolio of Oleksandr Sehechenko, a web developer and designer in Flensburg actively seeking a junior role in web development or digital media.",
   manifest: "/site.webmanifest",
   icons: {
     icon: [
