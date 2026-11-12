@@ -12,7 +12,7 @@ position in web development, web design, or digital media in Germany.
 
 ## Technologies
 
-- React and TypeScript (currently learning)
+- React and TypeScript
 - HTML and responsive CSS
 - vinext and Vite
 - Git and GitHub
