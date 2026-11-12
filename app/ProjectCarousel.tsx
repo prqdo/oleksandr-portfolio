@@ -5,11 +5,11 @@ import { useLanguage } from "./LanguageContext";
 
 const projectCopy = {
   en: [
-    { key: "portfolio", status: "Current project · 2026", title: "Portfolio Website", description: "The website you’re viewing now. I designed and built it to present my background, skills and availability while refreshing my frontend development knowledge.", tags: ["React", "Responsive CSS", "Interaction design"], repoHref: "https://github.com/prqdo/oleksandr-portfolio" },
+    { key: "portfolio", status: "Current project · 2026", title: "Portfolio Website", description: "The website you’re viewing now. I designed and built it to present my background, skills and availability while demonstrating my frontend development and interaction-design skills.", tags: ["React", "Responsive CSS", "Interaction design"], repoHref: "https://github.com/prqdo/oleksandr-portfolio" },
     { key: "klarlauf", status: "Live project · 2026", title: "Klarlauf", description: "A full-stack order-management tool for small creative teams, with editing, workflow filters and permanent storage in a Cloudflare database.", tags: ["React", "TypeScript", "Cloudflare D1"], repoHref: "https://github.com/prqdo/Klarlauf", liveHref: "https://klarlauf.sehechenko.workers.dev" },
   ],
   de: [
-    { key: "portfolio", status: "Aktuelles Projekt · 2026", title: "Portfolio-Website", description: "Die Website, die Sie gerade ansehen. Ich habe sie gestaltet und entwickelt, um meinen Hintergrund, meine Kenntnisse und meine Verfügbarkeit zu präsentieren und gleichzeitig mein Frontend-Wissen aufzufrischen.", tags: ["React", "Responsives CSS", "Interaktionsdesign"], repoHref: "https://github.com/prqdo/oleksandr-portfolio" },
+    { key: "portfolio", status: "Aktuelles Projekt · 2026", title: "Portfolio-Website", description: "Die Website, die Sie gerade ansehen. Ich habe sie gestaltet und entwickelt, um meinen Hintergrund, meine Kenntnisse und meine Verfügbarkeit zu präsentieren und meine Kenntnisse in Frontend-Entwicklung und Interaktionsdesign zu zeigen.", tags: ["React", "Responsives CSS", "Interaktionsdesign"], repoHref: "https://github.com/prqdo/oleksandr-portfolio" },
     { key: "klarlauf", status: "Live-Projekt · 2026", title: "Klarlauf", description: "Ein Full-Stack-Auftragsmanagement für kleine Kreativteams – mit Bearbeitung, Workflow-Filtern und dauerhafter Speicherung in einer Cloudflare-Datenbank.", tags: ["React", "TypeScript", "Cloudflare D1"], repoHref: "https://github.com/prqdo/Klarlauf", liveHref: "https://klarlauf.sehechenko.workers.dev" },
   ],
 } as const;
